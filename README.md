@@ -9,5 +9,5 @@ If you decide to contribute, you will be credited, please note that all commits 
 - Php (8.+)
 - VirusTotal API key
 - Imgur API key (Client ID)
-
+- Composer (php composer require klein/klein) -> Routes
 - Replace Imgur/VirusTotal API key in (editModController.php && addModController.php)
