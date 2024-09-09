@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Mod</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <style>
+        body {
+            background: #1F1F1F !important;
+            color: #fff !important;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            font-family: 'Inter', sans-serif;
+        } 
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 10px;
+        }
+        ::placeholder {
+            color: #fff !important;
+        }
+        .title {
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        .label {
+            color: #fff;
+        }
+        .control input, .control textarea, .control select {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        .control input[type="file"] {
+            display: none;
+        }
+        .button.is-primary {
+            background-color: #1e90ff;
+            color: #fff;
+        }
+        #logo-preview {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        #logo-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 10px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        .dropdown-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dropdown-content::-webkit-scrollbar-track {
+            background: #444;
+            border-radius: 5px;
+        }
+        .dropdown-content::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 5px;
+            border: 2px solid #444;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .tag-sec {
+            border: 1px solid #444;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 10px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tag-sec:hover {
+            background-color: #444;
+            color: #fff;
+        }
+        .file-input-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .file-input-wrapper .input {
+            flex: 1;
+        }
+        .file-input-wrapper .button {
+            margin-left: 10px;
+        }
+        .Public-Checkbox, .Private-Checkbox {
+          
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            user-select: none;
+            color: #fff;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 5px;
+            border-radius: 5px;
+            
+        }
+        .Public-Checkbox:hover, .Private-Checkbox:hover {
+            background-color: #555;
+        }
+        .Public-Checkbox input, .Private-Checkbox input {
+            margin-right: 10px;
+            background-color: #333;
+        }
+        .Public-Checkbox input:not(:checked), .Private-Checkbox input:not(:checked) {
+            background-color: #333;
+        }
+        .Public-Checkbox input:checked, .Private-Checkbox input:checked {
+            background-color: #FF4500;
+        }
+        .mod-tag {
+            border: 1px solid gray;
+            background-color: transparent;
+            padding: 2px 5px;
+            margin-left: 15px;
+            color: rgb(238, 234, 234);
+            font-size: 0.8em;
+           
+        }
+        @media (max-width: 768px) {
+            .box {
+                padding: 5px;
+            }
+            .title {
+                font-size: 1.5em;
+            }
+            .field {
+                margin-bottom: 15px;
+            }
+            .button.is-primary {
+                font-size: 0.9em;
+            }
+            .tag-sec {
+                font-size: 0.7em;
+                padding: 3px 7px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notification is-info">
+        Suggestion: Use <a href="https://dillinger.io/" target="_blank" style="color: #cfdd07;">Dillinger</a> as a markdown editor and please separate new lines with \n.
+    </div>
+    <div class="box">
+        <a href="/dashboard" style="position: absolute; top: 20px; left: 20px; color: #fff; font-size: 1.5em;">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="title">Add New Mod</h1>
+        <div id="logo-preview">
+            <img id="logo-image" src="" alt="Logo Preview">
+        </div>
+        <form id="add-mod-form">
+            <div class="field">
+                <label class="label">Mod Name</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Enter mod name" id="mod-name">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Short Description</label>
+                <div class="control">
+                    <textarea class="textarea" placeholder="Enter short description, this will be displayed on the mod page (max 60 characters)" id="short-description-input"></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Page Description</label>
+                <div class="control">
+                    <textarea class="textarea" placeholder="Enter Page Description can contain markdown please split lines with \n to make a new line (3000 characters max)" id="long-description-input"></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Logo</label>
+                <div class="control file-input-wrapper">
+                    <input class="input" type="text" placeholder="No file chosen" id="file-name" readonly>
+                    <label class="button is-primary">
+                        Choose File
+                        <input type="file" accept="image/*" id="logo-input">
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Tags</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Enter tags separated by commas" id="tags-input" readonly>
+                    <div class="dropdown">
+                        <div class="dropdown-content" id="tags-dropdown">
+                        </div>
+                    </div>
+                </div>
+                <div id="selected-tags"></div>
+            </div>
+            <div class="field">
+                <label class="label">Versions</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Enter versions separated by commas" id="versions-input" readonly>
+                    <div class="dropdown">
+                        <div class="dropdown-content" id="versions-dropdown">
+                        </div>
+                    </div>
+                </div>
+                <div id="selected-versions"></div>
+            </div>
+            <div class="field">
+                <label class="label">Upload JAR File</label>
+                <div class="control file-input-wrapper">
+                    <input class="input" type="text" placeholder="No file chosen" id="jar-file-name" readonly>
+                    <label class="button is-primary">
+                        Choose File
+                        <input type="file" accept="application/java-archive" id="jar-input">
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <label class="Public-Checkbox" style="color: #fff;">
+                    <input type="checkbox" style="color: #fff;" id="public-checkbox">
+                    Public
+                </label>
+                <label class="Private-Checkbox" style="margin-left: 20px; color: #fff;">
+                    <input type="checkbox" style="color: #fff;" id="private-checkbox">
+                    Private
+                </label>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">Submit</button>
+                </div>
+                <div class="control">
+                    <a href="/dashboard" class="button is-light">Cancel</a>
+                </div>
+                <div class="control">
+                    <button type="button" class="button is-primary" id="preview-mod">Preview Mod</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal" id="preview-modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box" style="background-color: #2e2e2e; border-radius: 10px;">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="/assets/png/Mods.png" alt="Mod Icon 1" id="preview-logo">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong style="color: #fff;" id="preview-title">Mod Title</strong>
+                                <br>
+                                <span style="color: gray;">by CRT</span>
+                                <br><br>
+                                <span style="color: #fff;" class="is-size-7 description" style="overflow: hidden; text-overflow: ellipsis; white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;" id="description-preview">Mod Description</span>
+                            </p>
+                            <div class="download-info" style="display: flex; align-items: center; margin-top: 10px;">
+                                <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16 18C16 18.5523 15.5523 19 15 19L5.00002 19C4.44774 19 4.00002 18.5523 4.00002 18C4.00002 17.4477 4.44774 17 5.00002 17L15 17C15.5523 17 16 17.4477 16 18ZM10.6247 13.7809C10.2595 14.073 9.74055 14.073 9.37533 13.7809L4.37533 9.78087C3.94407 9.43586 3.87415 8.80657 4.21916 8.3753C4.56417 7.94404 5.19346 7.87412 5.62472 8.21913L9.00002 10.9194L9.00002 2C9.00002 1.44772 9.44774 0.999999 10 0.999999C10.5523 1 11 1.44772 11 2L11 10.9194L14.3753 8.21913C14.8066 7.87412 15.4359 7.94404 15.7809 8.37531C16.1259 8.80657 16.056 9.43586 15.6247 9.78087L10.6247 13.7809Z' fill='%23999999'/%3E%3C/svg%3E%0A" style="margin-right: 5px;">
+                                <span style="color: #fff;">1.2k</span>
+                                
+                                <div id="preview-tags"></div>
+                                <div id="preview-versions"></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('logo-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('file-name').value = file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logoImage = document.getElementById('logo-image');
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        if (img.width > 320 || img.height > 320) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Logos cannot be greater than 320x320 format.',
+                                background: '#333',
+                                color: '#fff'
+                            });
+                            return;
+                        }
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0, img.width, img.height);
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        for (let i = 0; i < imageData.data.length; i += 4) {
+                            if (imageData.data[i] === 255 && imageData.data[i + 1] === 255 && imageData.data[i + 2] === 255) {
+                                imageData.data[i + 3] = 0;
+                            }
+                        }
+                        ctx.putImageData(imageData, 0, 0);
+                        logoImage.src = canvas.toDataURL();
+                        document.getElementById('logo-preview').style.display = 'block';
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('tags-input').addEventListener('focus', function(event) {
+            fetch('/get-tags')
+                .then(response => response.json())
+                .then(data => {
+                    const dropdown = document.getElementById('tags-dropdown');
+                    dropdown.innerHTML = '';
+                    const selectedTags = Array.from(document.getElementById('selected-tags').children).map(tagSpan => tagSpan.textContent);
+                    const availableTags = data.filter(tag => !selectedTags.includes(tag.name));
+                    if (availableTags.length > 0) {
+                        availableTags.forEach(tag => {
+                            const tagElement = document.createElement('a');
+                            tagElement.textContent = tag.name;
+                            tagElement.addEventListener('click', function() {
+                                const selectedTags = document.getElementById('selected-tags');
+                                const existingTags = Array.from(selectedTags.children).map(tagSpan => tagSpan.textContent);
+                                if (existingTags.length < 3 && !existingTags.includes(tag.name)) {
+                                    const tagSpan = document.createElement('span');
+                                    tagSpan.className = 'tag-sec';
+                                    tagSpan.textContent = tag.name;
+                                    tagSpan.style.cursor = 'pointer';  
+                                    tagSpan.addEventListener('click', function() {
+                                        tagSpan.remove();
+                                        const tagsInput = document.getElementById('tags-input');
+                                        const tagsArray = tagsInput.value.split(', ').filter(tag => tag !== tagSpan.textContent);
+                                        tagsInput.value = tagsArray.join(', ');
+                                    });
+                                    selectedTags.appendChild(tagSpan);
+                                    const tagsInput = document.getElementById('tags-input');
+                                    tagsInput.value += tagsInput.value ? `, ${tag.name}` : tag.name;
+                                    tagElement.remove();
+                                }
+                            });
+                            dropdown.appendChild(tagElement);
+                        });
+                        dropdown.style.display = 'block';
+                    } else {
+                        dropdown.style.display = 'none';
+                    }
+                });
+        });
+
+        document.getElementById('tags-input').addEventListener('blur', function(event) {
+            setTimeout(() => {
+                document.getElementById('tags-dropdown').style.display = 'none';
+            }, 200);
+        });
+
+        document.getElementById('versions-input').addEventListener('focus', function(event) {
+            fetch('/get-versions')
+                .then(response => response.json())
+                .then(data => {
+                    const dropdown = document.getElementById('versions-dropdown');
+                    dropdown.innerHTML = '';
+                    const selectedVersions = Array.from(document.getElementById('selected-versions').children).map(versionSpan => versionSpan.textContent);
+                    const availableVersions = data.filter(version => !selectedVersions.includes(version.name));
+                    if (availableVersions.length > 0) {
+                        availableVersions.forEach(version => {
+                            const versionElement = document.createElement('a');
+                            versionElement.textContent = version.name;
+                            versionElement.addEventListener('click', function() {
+                                const selectedVersions = document.getElementById('selected-versions');
+                                const existingVersions = Array.from(selectedVersions.children).map(versionSpan => versionSpan.textContent);
+                                if (existingVersions.length === 0) {
+                                    const versionSpan = document.createElement('span');
+                                    versionSpan.className = 'tag-sec';
+                                    versionSpan.textContent = version.name;
+                                    versionSpan.style.cursor = 'pointer';  
+                                    versionSpan.addEventListener('click', function() {
+                                        versionSpan.remove();
+                                        const versionsInput = document.getElementById('versions-input');
+                                        const versionsArray = versionsInput.value.split(', ').filter(version => version !== versionSpan.textContent);
+                                        versionsInput.value = versionsArray.join(', ');
+                                    });
+                                    selectedVersions.appendChild(versionSpan);
+                                    const versionsInput = document.getElementById('versions-input');
+                                    versionsInput.value = version.name;
+                                    versionElement.remove();
+                                }
+                            });
+                            dropdown.appendChild(versionElement);
+                        });
+                        dropdown.style.display = 'block';
+                    } else {
+                        dropdown.style.display = 'none';
+                    }
+                });
+        });
+
+        document.getElementById('versions-input').addEventListener('blur', function(event) {
+            setTimeout(() => {
+                document.getElementById('versions-dropdown').style.display = 'none';
+            }, 200);
+        });
+
+        document.getElementById('preview-mod').addEventListener('click', function() {
+            const shortDescriptionInput = document.getElementById('short-description-input');
+            const longDescriptionInput = document.getElementById('long-description-input');
+            const descriptionPreview = document.getElementById('description-preview');
+            const shortDescription = shortDescriptionInput.value.trim();
+            if (shortDescription) {
+                const encodedShortDescription = shortDescription.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                const shortText = encodedShortDescription.length > 50 ? encodedShortDescription.substring(0, 50) + '...' : encodedShortDescription;
+                descriptionPreview.textContent = shortText;
+                descriptionPreview.style.overflow = 'hidden';
+                descriptionPreview.style.textOverflow = 'ellipsis';
+                descriptionPreview.style.whiteSpace = 'normal';
+                descriptionPreview.style.display = '-webkit-box';
+                descriptionPreview.style.webkitBoxOrient = 'vertical';
+                descriptionPreview.style.webkitLineClamp = '3';
+                descriptionPreview.style.wordWrap = 'break-word';
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please enter a short description for your mod.',
+                    background: '#333',
+                    color: '#fff'
+                });
+                return;
+            }
+            const modName = document.querySelector('input[placeholder="Enter mod name"]').value;
+            document.getElementById('preview-title').textContent = modName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const logoImage = document.getElementById('logo-image');
+            
+            if (logoImage && logoImage.tagName === 'IMG') {
+                const sanitizedSrc = logoImage.src.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                document.getElementById('preview-logo').src = sanitizedSrc;
+            }
+
+            const selectedTags = Array.from(document.getElementById('selected-tags').children).map(tagSpan => tagSpan.textContent);
+            const previewTagsContainer = document.getElementById('preview-tags');
+            previewTagsContainer.innerHTML = '';
+            selectedTags.forEach(tag => {
+                const tagSpan = document.createElement('span');
+                tagSpan.className = 'tag-sec';
+                tagSpan.textContent = tag.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                previewTagsContainer.appendChild(tagSpan);
+            });
+
+            const selectedVersions = Array.from(document.getElementById('selected-versions').children).map(versionSpan => versionSpan.textContent);
+            const previewVersionsContainer = document.getElementById('preview-versions');
+            previewVersionsContainer.innerHTML = '';
+            selectedVersions.forEach(version => {
+                const versionSpan = document.createElement('span');
+                versionSpan.className = 'tag-sec';
+                versionSpan.textContent = version.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                previewVersionsContainer.appendChild(versionSpan);
+            });
+
+            document.getElementById('preview-modal').classList.add('is-active');
+        });
+
+        document.querySelectorAll('.modal-close, .modal-background').forEach(element => {
+            element.addEventListener('click', function() {
+                document.getElementById('preview-modal').classList.remove('is-active');
+            });
+        });
+
+        document.getElementById('add-mod-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const modName = document.getElementById('mod-name').value;
+            const shortDescription = document.getElementById('short-description-input').value;
+            const longDescription = document.getElementById('long-description-input').value.split('\n').map(line => line.replace(/</g, "&lt;").replace(/>/g, "&gt;") + '\n').join('');
+            const logoFile = document.getElementById('logo-input').files[0];
+            const jarFile = document.getElementById('jar-input').files[0];
+            const tags = Array.from(document.getElementById('selected-tags').children).map(tagSpan => tagSpan.textContent);
+            const versions = Array.from(document.getElementById('selected-versions').children).map(versionSpan => versionSpan.textContent);
+            const isPublic = document.getElementById('public-checkbox').checked;
+            const isPrivate = document.getElementById('private-checkbox').checked;
+
+            const formData = new FormData();
+            formData.append('modName', modName);
+            formData.append('shortDescription', shortDescription);
+            formData.append('longDescription', longDescription);
+            formData.append('logoFile', logoFile);
+            formData.append('jarFile', jarFile);
+            formData.append('tags', tags);
+            formData.append('versions', versions);
+            formData.append('isPublic', isPublic);
+            formData.append('isPrivate', isPrivate);
+
+            Swal.fire({
+                title: 'Submitting...',
+                text: 'Please wait while we submit your mod.',
+                background: '#333',
+                color: '#fff',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            fetch('/dashboard/add-mod', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.close();
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message,
+                        background: '#333',
+                        color: '#fff',
+                        timer: 2500
+                    });
+                    window.location.href = '/dashboard';
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message,
+                        background: '#333',
+                        color: '#fff'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while submitting the mod to CRMMods.',
+                    background: '#333',
+                    color: '#fff'
+                });
+            });
+        });
+
+        document.getElementById('jar-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('jar-file-name').value = file.name;
+            }
+        });
+    </script>
+</body>
+</html>

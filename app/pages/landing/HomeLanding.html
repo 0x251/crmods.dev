@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM | Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bulma@0.9.3/js/bulma.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .nav:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .mod-tag {
+            border: 1px solid #444;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 10px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .mod-tag:hover {
+            background-color: #444;
+            color: #fff;
+        }
+        ::placeholder {
+            color: #fff !important;
+        }
+        .boxer {
+            background-color: rgba(46, 46, 46, 0.2) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 10px !important;
+            border: none !important;
+            color: #ffffff !important;
+            padding: 10px !important;
+        }
+
+        .nav:hover, .nav:active, .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .nav:active, .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .navbar-start .nav:active, .navbar-start .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#" style="color: #fff; font-weight: bold; font-size: 1.5em;">
+                <span style="color: #ff534dc3;">CRMODS</span>
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="Navbar">
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+            </a>
+        </div>
+
+        <div id="Navbar" class="navbar-menu" style="background: #111010ef;">
+            <div class="navbar-start">
+                <a class="navbar-item nav" href="/" style="color: #fff;">
+                    Home
+                </a>
+                <a class="navbar-item nav" href="/modlist" style="color: #fff;">
+                    Mods
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Data
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Documentation
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="field" >
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" placeholder="Search" style="background-color: #2e2e2e; color: #fff; border: none;">
+                            <span class="icon is-left">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="buttons" id="auth-buttons">
+                        <a class="button is-primary" href="/register" style="background-color: #4a4a4a; color: #fff;">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="/login" style="background-color: #1e90ff; color: #fff;">
+                            Log in
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <div id="Popular-mods" class="container">
+            
+        </div>
+    </section>
+ <script src="/assets/js/mod-list.js"></script>
+</body>
+</html>

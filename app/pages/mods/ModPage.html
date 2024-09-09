@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mod Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bulma@0.9.3/js/bulma.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.1/dist/purify.min.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            background-color: #121212;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .mod-header .mod-title, .mod-header .mod-author {
+                font-size: 1.5em;
+            }
+            .media-right {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .mod-details .hash {
+                word-wrap: break-word;
+            }
+            .media-content, .media-right {
+                width: 100%;
+            }
+            .media-content .content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .media-content .content .tags {
+                margin-top: 10px;
+            }
+            .download-button {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+        .mod-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+        .mod-header img {
+            margin-right: 20px;
+            border-radius: 10px;
+        }
+        .mod-header .mod-title {
+            font-size: 2em;
+            color: #ffffff;
+        }
+        .mod-header .mod-author {
+            color: #ffffff;
+            font-size: 1.2em;
+        }
+        .mod-header .mod-downloads {
+            color: #ffffff;
+            font-size: 1.2em;
+        }
+        .tabs {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+        .tabs ul {
+            justify-content: center;
+        }
+        .tabs a {
+            color: #ffffff;
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            margin: 0 10px;
+        }
+        .tabs a:hover {
+            background-color: #333;
+        }
+        .tabs .is-active a {
+            background-color: #333 !important;
+            color: #fff !important;
+            border:none;
+        }
+        .tabs a:hover {
+            background-color: #333 !important;
+            color: #fff !important;
+            border:none;
+        }
+        .content {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            color: #ffffff;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+        .content h2 {
+            color: #ffffff;
+        }
+        .content p {
+            margin-bottom: 20px;
+        }
+        .content img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .mod-tag {
+            border: 1px solid #333;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 10px;
+            color: #ffffff;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .mod-tag:hover {
+            background-color: #444;
+            color: #ffffff;
+        }
+
+        .download-button {
+            background-color: #FF8C00;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-left: auto;
+            display: inline-block;
+            margin-left: 15px;
+        }
+
+        .download-button:hover {
+            background-color: #e07b00;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .download-button {
+                margin-left: auto;
+                padding: 9px 5px;
+                width: 160px;
+            }
+        }
+        .report-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .nav:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+            color: #ffffff !important;
+        }
+        .navbar-brand, .navbar-tabs {
+    background-color: #111010ef !important;
+}
+.nav:hover, .nav:active, .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .nav:active, .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .navbar-start .nav:active, .navbar-start .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#" style="color: #fff; font-weight: bold; font-size: 1.5em;">
+                <span style="color: #ff534dc3;">CRMODS</span>
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="Navbar">
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+            </a>
+        </div>
+
+        <div id="Navbar" class="navbar-menu" style="background: #111010ef;">
+            <div class="navbar-start">
+                <a class="navbar-item nav" href="/" style="color: #fff;">
+                    Home
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Mods
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Data
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Documentation
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="field" >
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" placeholder="Search" style="background-color: #2e2e2e; color: #fff; border: none;">
+                            <span class="icon is-left">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="buttons" id="auth-buttons">
+                        <a class="button is-primary" href="/register" style="background-color: #4a4a4a; color: #fff;">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="/login" style="background-color: #1e90ff; color: #fff;">
+                            Log in
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <section class="section">
+        <div class="container" style="box-sizing: border-box; background-color: #121212; position: relative;" >
+            <i  id="report-icon" class="fas fa-flag report-icon"></i>
+            <div class="box" style="border-radius: 10px; border:none; background-color: #1f1f1f; color: #ffffff;" >
+                <div class="media">
+                    <figure class="media-left">
+                        <p class="image is-128x128">
+                            <img id="mod-icon" src="/assets/png/Mods.png" alt="Mod Icon">
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong style="color: #ffffff;" id="mod-name">PokieMOn</strong>
+                                <br>
+                                <small style="color: #ffffff;" id="mod-author">by Author</small>
+                               
+                            </p>
+                            <div class="tags" id="mod-tags">
+                                
+                            </div>
+                            <div class="download-info" style="display: flex; align-items: center; margin-top: 10px;">
+                                <span class="icon" style="margin: 5px;">
+                                    <i class="fas fa-download" style="color: #999999;"></i>
+                                </span>
+                                <span style="color: #fff; margin: 5px;" id="mod-downloads">1.2k</span>
+                                
+                            </div>
+                            
+                        </div>
+                        <a href="#" class="download-button" id="download-button">Download</a>
+                    </div>
+                </div>
+               
+            </div>
+           
+            <br>
+            <div class="box" style="border-radius: 10px; border:none; background-color: #1f1f1f; color: #ffffff; padding: 20px;" >
+                <h2 class="title is-4" style="color: #ffffff; margin-bottom: 15px;">Description</h2>
+                <div class="content">
+                    <div style="margin-bottom: 20px; color: #ffffff !important;" id="mod-description"></div>
+                </div>
+                
+                
+            </div>
+            <div class="box mod-details" style="border-radius: 10px; border:none; background-color: #1f1f1f; color: #e0e0e0; padding: 20px;" >
+                <h2 class="title is-4" style="color: #e0e0e0; margin-bottom: 15px;">Mod Details</h2>
+                <div class="field">
+                    <label class="label" style="color: #e0e0e0;">Mod Version:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="mod-version" readonly style="background-color: #3a3a3a; color: #e0e0e0; border: none;">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" style="color: #e0e0e0;">Mod ID:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="mod-id" readonly style="background-color: #3a3a3a; color: #e0e0e0; border: none;">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" style="color: #e0e0e0;">SHA256 Hash:</label>
+                    <div class="control">
+                        <input id="mod-sha256" class="input" type="text" value="" readonly style="background-color: #3a3a3a; color: #e0e0e0; border: none;">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" style="color: #e0e0e0;">MD5 Hash:</label>
+                    <div class="control">
+                        <input id="mod-md5" class="input" type="text" value="" readonly style="background-color: #3a3a3a; color: #e0e0e0; border: none;">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" style="color: #e0e0e0;">SHA1 Hash:</label>
+                    <div class="control">
+                        <input id="mod-sha1" class="input" type="text" value="" readonly style="background-color: #3a3a3a; color: #e0e0e0; border: none;">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" style="color: #e0e0e0;">Size:</label>
+                    <div class="control">
+                        <input id="mod-size" class="input" type="text" value="" readonly style="background-color: #3a3a3a; color: #e0e0e0; border: none;">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" style="color: #e0e0e0;">VirusTotal Link:</label>
+                    <div class="control">
+                        <a id="virustotal-link" href="" target="_blank" style="color: #ADD8E6; text-decoration: underline;"></a>
+                    </div>
+                </div>
+                <script>
+                   
+                </script>
+            </div>
+        </div>
+    </section>
+    <div id="report-modal" class="modal">
+        <div class="modal-background" ></div>
+        <div class="modal-content" >
+            <div class="box" style="background-color: #1f1f1f;">
+                <h2 class="title is-4" style="color: #ffffff;">Report Mod</h2>
+                <form id="report-form">
+                    <div class="field">
+                        <label class="label" style="color: #ffffff;">Reason</label>
+
+                        <div class="control">
+                            <textarea id="report-reason" class="textarea" placeholder="Describe the issue..." style="background-color: #3a3a3a; color: #ffffff; border: none; ::placeholder { color: #ffffff !important; }"></textarea>
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-danger">Submit Report</button>
+                        </div>
+                        <div class="control">
+                            <button type="button" class="button is-light" id="report-modal-close" style="background-color: #3a3a3a; color: #ffffff; border: none;">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <script src="/assets/js/mod.js" preload></script>
+</body>
+</html>

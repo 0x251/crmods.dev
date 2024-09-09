@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
+
+    <style>
+        body {
+            background: #111010ef !important;
+            color: #fff !important;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .content table thead td, .content table thead th {
+            color: #fff !important;
+        }
+        strong {
+            color: #fff !important;
+        }
+        code {
+            color: #3f41c5 !important;
+            background-color: #1c1c1c !important;
+            border-radius: 10px !important;
+            padding: 5px !important;
+        }
+        pre {
+            background-color: #1c1c1c !important;
+            border-radius: 10px !important;
+            padding: 5px !important;
+        }
+        .content blockquote {
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 2px solid #1e90ff;
+        }
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .subtitle {
+            color: gray;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+            color: #fff;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .verified-badge {
+            display: inline-block;
+            background-color: #1e90ff;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .dashboard-header h1 {
+            margin: 0;
+        }
+        .dashboard-header .buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .dashboard-header .button {
+            background-color: #1e90ff;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+        .dashboard-header .button i {
+            margin-right: 5px;
+        }
+        .section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+        }
+        .mod-tag {
+            border: 1px solid #444;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 10px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .mod-tag:hover {
+            background-color: #444;
+            color: #fff;
+        }
+        .boxer {
+            background-color: rgba(46, 46, 46, 0.2) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 10px !important;
+            border: none !important;
+            color: #ffffff !important;
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        .label {
+            color: #fff;
+        }
+        .control input, .control textarea, .control select {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        .control input[type="file"] {
+            display: none;
+        }
+        .button.is-primary {
+            background-color: #1e90ff;
+            color: #fff;
+        }
+        #logo-preview {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        #logo-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 10px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 100%;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .file-input-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .file-input-wrapper .button {
+            margin-left: 10px;
+        }
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 10px;
+        }
+        ::placeholder {
+            color: #fff !important;
+        }
+        .title {
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        .label {
+            color: #fff;
+        }
+        .control input, .control textarea, .control select {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        .control input[type="file"] {
+            display: none;
+        }
+        .button.is-primary {
+            background-color: #1e90ff;
+            color: #fff;
+        }
+        #logo-preview {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        #logo-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 10px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        .dropdown-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dropdown-content::-webkit-scrollbar-track {
+            background: #444;
+            border-radius: 5px;
+        }
+        .dropdown-content::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 5px;
+            border: 2px solid #444;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .tag-sec {
+            border: 1px solid #444;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 10px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tag-sec:hover {
+            background-color: #444;
+            color: #fff;
+        }
+        .file-input-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .file-input-wrapper .input {
+            flex: 1;
+        }
+        .file-input-wrapper .button {
+            margin-left: 10px;
+        }
+        .Public-Checkbox, .Private-Checkbox {
+          
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            user-select: none;
+            color: #fff;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 5px;
+            border-radius: 5px;
+            
+        }
+        .Public-Checkbox:hover, .Private-Checkbox:hover {
+            background-color: #555;
+        }
+        .Public-Checkbox input, .Private-Checkbox input {
+            margin-right: 10px;
+            background-color: #333;
+        }
+        .Public-Checkbox input:not(:checked), .Private-Checkbox input:not(:checked) {
+            background-color: #333;
+        }
+        .Public-Checkbox input:checked, .Private-Checkbox input:checked {
+            background-color: #FF4500;
+        }
+       
+        @media (max-width: 768px) {
+            .box {
+                padding: 5px;
+            }
+            .title {
+                font-size: 1.5em;
+            }
+            .field {
+                margin-bottom: 15px;
+            }
+            .button.is-primary {
+                font-size: 0.9em;
+            }
+            .tag-sec {
+                font-size: 0.7em;
+                padding: 3px 7px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="section" style="background-color: #1F1F1F;">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="title"><i class="fas fa-tachometer-alt"></i> Mods Dashboard</h1>
+                <div class="buttons">
+                    <a class="button is-primary" href="/dashboard/add"><i class="fas fa-plus"></i> Add New Mod</a>
+                    <a class="button is-primary" href="/dashboard/settings"><i class="fas fa-cog"></i> Settings</a>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="box boxer">
+                        <h2 class="subtitle" style="color: #fff;"><i class="fas fa-upload"></i> Mods Submitted</h2>
+                        <p style="color: #fff; font-size: 1.2em; font-weight: bold;" id="mods-submitted"></p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box boxer">
+                        <h2 class="subtitle" style="color: #fff;"><i class="fas fa-check"></i> Mods Verified</h2>
+                        <p style="color: #fff; font-size: 1.2em; font-weight: bold;" id="mods-verified"></p>
+                    </div>
+                </div>
+            </div>
+            <div id="your-mods">
+                
+           
+                
+            
+            </div>
+            <div id="pagination">
+                
+            </div>
+
+            
+        </div>
+    </section>
+
+    <div class="modal" id="edit-modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box" style="background-color: #2e2e2e; border-radius: 10px;">
+                <form id="edit-mod-form">
+                    <div class="field">
+                        <label class="label">Mod Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter mod name" id="edit-mod-name">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Short Description</label>
+                        <div class="control">
+                            <textarea class="textarea" placeholder="Enter short description, this will be displayed on the mod page (max 60 characters)" id="edit-short-description-input"></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Page Description</label>
+                        <div class="control">
+                            <textarea class="textarea" placeholder="Enter Page Description can contain markdown please split lines with \n to make a new line (3000 characters max)" id="edit-long-description-input"></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Logo</label>
+                        <div class="control file-input-wrapper">
+                            <input class="input" type="text" placeholder="No file chosen" id="edit-file-name" readonly>
+                            <label class="button is-primary">
+                                Choose File
+                                <input type="file" accept="image/*" id="edit-logo-input">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Mod File</label>
+                        <div class="control file-input-wrapper">
+                            <input class="input" type="text" placeholder="No file chosen" id="edit-mod-file-name" readonly>
+                            <label class="button is-primary">
+                                Choose File
+                                <input type="file" accept="application/java-archive" id="edit-mod-file-input">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Tags</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter tags separated by commas" id="edit-tags-input" readonly>
+                            <div class="dropdown">
+                                <div class="dropdown-content" id="edit-tags-dropdown">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="edit-selected-tags"></div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Versions</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter versions separated by commas" id="edit-versions-input" readonly>
+                            <div class="dropdown">
+                                <div class="dropdown-content" id="edit-versions-dropdown">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="edit-selected-versions"></div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">Save Changes</button>
+                        </div>
+                        <div class="control">
+                            <button type="button" class="button is-primary" id="preview-button">Preview</button>
+                        </div>
+                        <div class="control">
+                            <button type="submit" class="button is-danger">Delete</button>
+                        </div>
+                        <input type="hidden" id="edit-mod-id" value="">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div class="modal" id="preview-modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box" style="background-color: #2e2e2e; border-radius: 10px;">
+            
+                <div class="columns">
+                    <div class="column">
+                        <div class="content">
+                            <div id="preview-long-description" style="color: #fff;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script src="/assets/js/dashboard.js"></script>
+    <script>
+        document.getElementById('edit-logo-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('edit-file-name').value = file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logoImage = document.getElementById('edit-logo-image');
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        if (img.width > 320 || img.height > 320) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Logos cannot be greater than 320x320 format.',
+                                background: '#333',
+                                color: '#fff'
+                            });
+                            return;
+                        }
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0, img.width, img.height);
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        for (let i = 0; i < imageData.data.length; i += 4) {
+                            if (imageData.data[i] === 255 && imageData.data[i + 1] === 255 && imageData.data[i + 2] === 255) {
+                                imageData.data[i + 3] = 0;
+                            }
+                        }
+                        ctx.putImageData(imageData, 0, 0);
+                        logoImage.src = canvas.toDataURL();
+                        document.getElementById('edit-logo-preview').style.display = 'block';
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        document.getElementById('edit-mod-file-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('edit-mod-file-name').value = file.name;
+            }
+        });
+
+        document.getElementById('edit-tags-input').addEventListener('focus', function(event) {
+            const selectedTags = Array.from(document.getElementById('edit-selected-tags').children).map(tagSpan => tagSpan.textContent);
+            if (selectedTags.length >= 3) {
+                return;
+            }
+            fetch('/get-tags')
+                .then(response => response.json())
+                .then(data => {
+                    const dropdown = document.getElementById('edit-tags-dropdown');
+                    dropdown.innerHTML = '';
+                    const availableTags = data.filter(tag => !selectedTags.includes(tag.name));
+                    if (availableTags.length > 0) {
+                        availableTags.forEach(tag => {
+                            const tagElement = document.createElement('a');
+                            tagElement.textContent = tag.name;
+                            tagElement.addEventListener('click', function() {
+                                const selectedTags = document.getElementById('edit-selected-tags');
+                                const existingTags = Array.from(selectedTags.children).map(tagSpan => tagSpan.textContent);
+                                if (existingTags.length < 3 && !existingTags.includes(tag.name)) {
+                                    const tagSpan = document.createElement('span');
+                                    tagSpan.className = 'tag-sec';
+                                    tagSpan.textContent = tag.name;
+                                    tagSpan.style.cursor = 'pointer';  
+                                    tagSpan.addEventListener('click', function() {
+                                        tagSpan.remove();
+                                        const tagsInput = document.getElementById('edit-tags-input');
+                                        const tagsArray = tagsInput.value.split(', ').filter(tag => tag !== tagSpan.textContent);
+                                        tagsInput.value = tagsArray.join(', ');
+                                    });
+                                    selectedTags.appendChild(tagSpan);
+                                    const tagsInput = document.getElementById('edit-tags-input');
+                                    tagsInput.value += tagsInput.value ? `, ${tag.name}` : tag.name;
+                                    tagElement.remove();
+                                    dropdown.style.display = 'none';
+                                }
+                            });
+                            dropdown.appendChild(tagElement);
+                        });
+                        dropdown.style.display = 'block';
+                    } else {
+                        dropdown.style.display = 'none';
+                    }
+                });
+        });
+
+        document.getElementById('edit-versions-input').addEventListener('focus', function(event) {
+            fetch('/get-versions')
+                .then(response => response.json())
+                .then(data => {
+                    const dropdown = document.getElementById('edit-versions-dropdown');
+                    dropdown.innerHTML = '';
+                    const selectedVersions = Array.from(document.getElementById('edit-selected-versions').children).map(versionSpan => versionSpan.textContent);
+                    const availableVersions = data.filter(version => !selectedVersions.includes(version.name));
+                    if (availableVersions.length > 0) {
+                        availableVersions.forEach(version => {
+                            const versionElement = document.createElement('a');
+                            versionElement.textContent = version.name;
+                            versionElement.addEventListener('click', function() {
+                                const selectedVersions = document.getElementById('edit-selected-versions');
+                                const existingVersions = Array.from(selectedVersions.children).map(versionSpan => versionSpan.textContent);
+                                if (existingVersions.length === 0) {
+                                    const versionSpan = document.createElement('span');
+                                    versionSpan.className = 'tag-sec';
+                                    versionSpan.textContent = version.name;
+                                    versionSpan.style.cursor = 'pointer';  
+                                    versionSpan.addEventListener('click', function() {
+                                        versionSpan.remove();
+                                        const versionsInput = document.getElementById('edit-versions-input');
+                                        const versionsArray = versionsInput.value.split(', ').filter(version => version !== versionSpan.textContent);
+                                        versionsInput.value = versionsArray.join(', ');
+                                    });
+                                    selectedVersions.appendChild(versionSpan);
+                                    const versionsInput = document.getElementById('edit-versions-input');
+                                    versionsInput.value = version.name;
+                                    versionElement.remove();
+                                    dropdown.style.display = 'none';
+                                }
+                            });
+                            dropdown.appendChild(versionElement);
+                        });
+                        dropdown.style.display = 'block';
+                    } else {
+                        dropdown.style.display = 'none';
+                    }
+                });
+        });
+
+        document.getElementById('edit-mod-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const modName = document.getElementById('edit-mod-name').value;
+            const shortDescription = document.getElementById('edit-short-description-input').value;
+            const longDescription = document.getElementById('edit-long-description-input').value.split('\n').map(line => line.replace(/</g, "&lt;").replace(/>/g, "&gt;") + '\n').join('');
+            const logoFile = document.getElementById('edit-logo-input').files[0];
+            const jarFile = document.getElementById('edit-mod-file-input').files[0];
+            const tags = Array.from(document.getElementById('edit-selected-tags').children).map(tagSpan => tagSpan.textContent);
+            const versions = Array.from(document.getElementById('edit-selected-versions').children).map(versionSpan => versionSpan.textContent);
+
+            const formData = new FormData();
+            formData.append('modName', modName);
+            formData.append('shortDescription', shortDescription);
+            formData.append('longDescription', longDescription);
+            formData.append('logoFile', logoFile);
+            formData.append('jarFile', jarFile);
+            formData.append('tags', tags);
+            formData.append('versions', versions);
+
+            Swal.fire({
+                title: 'Saving...',
+                text: 'Please wait while we save your changes.',
+                background: '#333',
+                color: '#fff',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            const modId = document.getElementById('edit-mod-id').value;
+            fetch(`/dashboard/mod/${modId}/edit`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.close();
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message,
+                        background: '#333',
+                        color: '#fff',
+                        timer: 2500
+                    });
+                    window.location.href = '/dashboard';
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message,
+                        background: '#333',
+                        color: '#fff'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while saving the changes.',
+                    background: '#333',
+                    color: '#fff'
+                });
+            });
+        });
+        document.getElementById('preview-button').addEventListener('click', function() {
+            const longDescription = DOMPurify.sanitize(document.getElementById('edit-long-description-input').value.replace(/\\n/g, '\n')
+                .replace(/https?:\/\/(?!.*(youtube|imgur)\.com)[^ ]+/gi, '[Unsafe link detected and removed]'));
+            
+            document.getElementById('preview-long-description').innerHTML = `<md-block style="word-break: break-word;">${longDescription}</md-block>`;
+            document.getElementById('preview-modal').classList.add('is-active');
+        });
+
+        document.querySelectorAll('#preview-modal .modal-close, #preview-modal .modal-background').forEach(element => {
+            element.addEventListener('click', function() {
+                document.getElementById('preview-modal').classList.remove('is-active');
+            });
+        });
+
+        document.querySelectorAll('#edit-modal .modal-close, #edit-modal .modal-background, #cancel-edit').forEach(element => {
+            element.addEventListener('click', function() {
+                document.getElementById('edit-modal').classList.remove('is-active');
+            });
+        });
+
+        
+    </script>
+</body>
+</html>

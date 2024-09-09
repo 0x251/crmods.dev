@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM | Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bulma@0.9.3/js/bulma.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .nav:hover, .nav:active, .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .nav:active, .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .navbar-start .nav:active, .navbar-start .nav:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+        .mod-tag {
+            border: 1px solid gray;
+            background-color: transparent;
+            padding: 2px 5px;
+            margin-left: 15px;
+            color: rgb(238, 234, 234);
+            font-size: 0.8em;
+        }
+        .navbar-item.nav:hover, .navbar-item.nav:active {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            transition: background-color 0.3s ease;
+        }
+       
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 10px;
+        }
+        .button.is-primary {
+            background-color: #4a4a4a;
+            color: #fff;
+        }
+        .button.is-light {
+            background-color: #1e90ff;
+            color: #fff;
+        }
+        ::placeholder {
+            color: #fff !important;
+        }
+        .icon.is-right {
+            right: 10px;
+        }
+        .icon.is-right.success {
+            color: green;
+        }
+        .icon.is-right.error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#" style="color: #fff; font-weight: bold; font-size: 1.5em;">
+                <span style="color: #ff534dc3;">CRMODS</span>
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="Navbar">
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+                <span aria-hidden="true" style="background-color: #fff;"></span>
+            </a>
+        </div>
+
+        <div id="Navbar" class="navbar-menu" style="background: #111010ef;">
+            <div class="navbar-start">
+                <a class="navbar-item nav" href="/" style="color: #fff;">
+                    Home
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Mods
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Data
+                </a>
+                <a class="navbar-item nav" href="#" style="color: #fff;">
+                    Documentation
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" placeholder="Search mods..." style="background-color: #2e2e2e; color: #fff; border: none;">
+                            <span class="icon is-left">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="/register" style="background-color: #4a4a4a; color: #fff;">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="/login" style="background-color: #1e90ff; color: #fff;">
+                            Log in
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <br>
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-one-third">
+                    <div class="box" style="background-color:#333333; border-radius: 10px;">
+                        <h1 class="title has-text-white" style="font-weight: bold; font-size: 2em;">Register</h1>
+                        <form id="registerForm">
+                            <div class="field">
+                                <label class="label has-text-white" style="font-size: 1.2em;">Email</label>
+                                <div class="control has-icons-left">
+                                    <input class="input" type="email" id="email" placeholder="e.g. crmmods@crmods.dev" required style="background-color:#333333; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); opacity: 0.9;">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope" style="color: #fff;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label has-text-white" style="font-size: 1.2em;">Password</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" type="password" id="password" placeholder="********" required style="background-color:#333333; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); opacity: 0.9;">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock" style="color: #fff;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label has-text-white" style="font-size: 1.2em;">Confirm Password</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" type="password" id="confirmPassword" placeholder="********" required style="background-color:#333333; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); opacity: 0.9;">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock" style="color: #fff;"></i>
+                                    </span>
+                                    <span class="icon is-small is-right" id="passwordMatchIcon"></span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox has-text-white">
+                                        <input type="checkbox" id="togglePassword">
+                                        Show password
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary" type="submit" style="background-color: #1e90ff; color: #fff; border: none;">Register</button>
+                                    <a class="button is-light" href="/login" style="background-color: #4a4a4a; color: #fff; border: none; margin-left: 10px;">Login</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+            const registerForm = document.getElementById('registerForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordMatchIcon = document.getElementById('passwordMatchIcon');
+            const togglePassword = document.getElementById('togglePassword');
+
+            togglePassword.addEventListener('change', function() {
+                const type = this.checked ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                confirmPasswordInput.setAttribute('type', type);
+            });
+
+            confirmPasswordInput.addEventListener('input', function() {
+                if (passwordInput.value === confirmPasswordInput.value) {
+                    passwordMatchIcon.classList.remove('error');
+                    passwordMatchIcon.classList.add('success');
+                    passwordMatchIcon.innerHTML = '<i class="fas fa-check"></i>';
+                } else {
+                    passwordMatchIcon.classList.remove('success');
+                    passwordMatchIcon.classList.add('error');
+                    passwordMatchIcon.innerHTML = '<i class="fas fa-times"></i>';
+                }
+            });
+
+            registerForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                if (emailInput.value.trim() === '' || passwordInput.value.trim() === '' || confirmPasswordInput.value.trim() === '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Registration Failed',
+                        text: 'All fields are required.',
+                        background: '#333333',
+                        color: '#fff'
+                    });
+                    return;
+                }
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    passwordMatchIcon.classList.remove('success');
+                    passwordMatchIcon.classList.add('error');
+                    passwordMatchIcon.innerHTML = '<i class="fas fa-times"></i>';
+                    return;
+                }
+
+                fetch('/register-auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `email=${encodeURIComponent(emailInput.value)}&password=${encodeURIComponent(passwordInput.value)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registration Successful',
+                            text: 'You will be redirected to the dashboard shortly.',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            background: '#333333',
+                            color: '#fff'
+                        }).then(() => {
+                            window.location.href = '/dashboard';
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Registration Failed',
+                            text: data.message,
+                            background: '#333333',
+                            color: '#fff'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

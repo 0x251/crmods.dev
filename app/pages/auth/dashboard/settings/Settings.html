@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <style>
+        body {
+            background: #111010ef !important;
+            color: #fff !important;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .swal2-container .swal2-center .swal2-backdrop-show {
+            background: #1F1F1F !important;
+        }
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .subtitle {
+            color: gray;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .settings-header h1 {
+            margin: 0;
+        }
+        .settings-header .buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .settings-header .button {
+            background-color: #1e90ff;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+        .settings-header .button i {
+            margin-right: 10px;
+        }
+        .section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+        }
+        .boxer {
+            background-color: rgba(46, 46, 46, 0.2) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 10px !important;
+            border: none !important;
+            color: #ffffff !important;
+        }
+        ::placeholder {
+            color: #fff !important;
+        }
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon input {
+            padding-right: 40px;
+        }
+        .input-with-icon .icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .blurred {
+            filter: blur(5px);
+        }
+        .input-with-icon input:hover {
+            filter: none;
+        }
+        .copied {
+            color: #00ff00;
+            animation: copied-animation 0.5s;
+        }
+        @keyframes copied-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .valid-icon {
+            color: #00ff00;
+            animation: fadeIn 0.5s;
+        }
+        .invalid-icon {
+            color: #ff0000;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" style="background-color: #1F1F1F;">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/dashboard" style="color: #fff; font-weight: bold; font-size: 1.5em;">
+                <i class="fas fa-arrow-left" style="margin-right: 10px;"></i> Back
+            </a>
+        </div>
+    </nav>
+    <section class="section" style="background-color: #1F1F1F; height: 100%;">
+        <div class="container" style="height: 100vh !important;">
+            <div class="settings-header">
+                <h1 class="title"><i class="fas fa-cog"></i> Settings</h1>
+            </div>
+          
+            <div class="columns">
+                <div class="column">
+                    <div id="swal-container"></div>
+                    <div class="box boxer">
+                        <h2 class="subtitle" style="color: #fff;"><i class="fas fa-user"></i> Change Username</h2>
+                        <div class="field">
+                            <label class="label" style="color: #fff;">New Username</label>
+                            <div class="control input-with-icon">
+                                <input class="input" type="text" placeholder="Enter new username" id="username" style="background-color: #3a3a3a; color: #e0e0e0; border: none;">
+                                <span class="icon" id="username-icon"></span>
+                            </div>
+                        </div>
+                        <button class="button is-primary" id="save-username"><i class="fas fa-save" style="margin-right: 10px;"></i> Save</button>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box boxer">
+                        <h2 class="subtitle" style="color: #fff;"><i class="fas fa-key"></i> API Key</h2>
+                        <div class="field">
+                            <label class="label" style="color: #fff;">Current API Key</label>
+                            <div class="control input-with-icon">
+                                <input class="input blurred" type="text" value="" id="api-key" style="background-color: #3a3a3a; color: #e0e0e0; border: none;" readonly>
+                                <span class="icon" id="copy-icon">
+                                    <i class="fas fa-copy"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <button class="button is-primary" id="generate-api-key"><i class="fas fa-sync-alt" style="margin-right: 10px;"></i> Generate New API Key</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+</body>
+</html>
+    <script>
+        document.getElementById('copy-icon').addEventListener('click', function() {
+            var apiKeyInput = document.getElementById('api-key');
+            apiKeyInput.classList.remove('blurred');
+            apiKeyInput.select();
+            document.execCommand('copy');
+            apiKeyInput.classList.add('copied');
+            setTimeout(function() {
+                apiKeyInput.classList.remove('copied');
+                apiKeyInput.classList.add('blurred');
+            }, 1000);
+        });
+
+        document.getElementById('username').addEventListener('input', function() {
+            var username = this.value;
+            var usernameIcon = document.getElementById('username-icon');
+            if (username.length > 0) {
+                fetch('/dashboard/settings/check-username', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: username })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        usernameIcon.innerHTML = '<i class="fas fa-check valid-icon"></i>';
+                    } else {
+                        usernameIcon.innerHTML = '<i class="fas fa-times invalid-icon"></i>';
+                    }
+                });
+            } else {
+                usernameIcon.innerHTML = '';
+            }
+        });
+
+
+        document.getElementById('generate-api-key').addEventListener('click', function() {
+            fetch('/dashboard/settings/generate-api-key')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('api-key').value = data.apiKey;
+                });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/dashboard/settings/get-api-key')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('api-key').value = data.apiKey;
+                });
+        });
+
+        document.getElementById('save-username').addEventListener('click', function() {
+            var username = document.getElementById('username').value;
+            if (username.length > 0) {
+                fetch('/dashboard/settings/change-username', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ newUsername: username })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: data.message,
+                            background: '#1F1F1F',
+                            color: '#fff',
+                            target: '#swal-container'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message,
+                            background: '#1F1F1F',
+                            color: '#fff',
+                            target: '#swal-container'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Username cannot be empty',
+                    background: '#1F1F1F',
+                    color: '#fff',
+                    target: '#swal-container'
+                });
+            }
+        });
+    </script>
+
